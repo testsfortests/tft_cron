@@ -19,8 +19,10 @@ const router = express.Router();
 //     }
 // });
 
-router.get('/cron',(req,res)=>{
+router.get('/cron',async (req,res)=>{
     const currentTime = new Date();
+    const response = await axios.post(`http://tft-backend.onrender.com/tele/send-message`,{message :"CRON Started"});
+    console.log(response.data.success)
 
     res.status(200).end(`Hello Cron2! ${currentTime}`);
 })
