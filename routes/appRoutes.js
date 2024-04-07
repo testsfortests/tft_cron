@@ -19,11 +19,16 @@ const router = express.Router();
 //     }
 // });
 
-router.get('/cron',async (req,res)=>{
-    const currentTime = new Date();
-    const response = await axios.post(`http://tft-backend.onrender.com/tele/send-message`,{message :"CRON Started"});
-    console.log(response.data.success)
+router.get('/cron', async (req, res) => {
+    try {
+        const currentTime = new Date();
+        const response = await axios.post(`http://tft-backend.onrender.com/tele/send-message`, { message: "CRON Started" });
+        console.log(response.data.success);
+        res.status(200).end(`Hello Cron2! ${currentTime}`);
+    } catch (error) {
+        console.error("Error occurred during cron execution:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
-    res.status(200).end(`Hello Cron2! ${currentTime}`);
-})
 export default router;
